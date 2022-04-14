@@ -1,5 +1,7 @@
 # Albion Enchant Profit
 
-A Pen created on CodePen.io. Original URL: [https://codepen.io/symonomicon/pen/jOmmNjY](https://codepen.io/symonomicon/pen/jOmmNjY).
+Remade to work with the single file.
 
+Added styling.
 
+Fixed a bug that prevented enhancement 1 from being logged.
