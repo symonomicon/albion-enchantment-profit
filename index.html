@@ -1,106 +1,57 @@
 <!DOCTYPE html>
 <html>
-<style>
-html,body {
-  height: 100%
-}
-html {
-  display: table;
-  width:25%;
-  margin: auto;
-}
-body {
-  display: table-cell;
-  vertical-align: middle;
-  font-family: Helvetica, Georgia;
-}
-input {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  outline:none;
-}
-input:focus {
-  border: 3px solid #555;
-}
-select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-}
-button[type=submit] {
-  background-color: #753786;
-  border: none;
-  color: #fff;
-  padding: 16px 32px;
-  text-decoration: none;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  cursor: pointer;
-  width:100%
-}
-.spec {
-  color: #753786;
-}
-</style>
-<head>
-<script>
-function validateFormOnSubmit(values) {
-  const getValue = (key) => parseFloat(values[key].value)
-  const calculateValue = (base, modifier, multi) => {
-    modifier.map((price, index) => {
-      let n = index - 1
-      let prevMaterial = 0
-      while (n != -1) {
-        let prevPrice = modifier[n]
-        prevMaterial += prevPrice * multi || 0 
-        n--
-      }
-      const total = base + ((price * multi) + prevMaterial)
-      console.log(`Enchantment ${index + 1}: ${total.toLocaleString('en-US')} (Material Price: ${(price * multi).toLocaleString('en-US')})`)
-	  if(index+1 == 1) {
-	  document.getElementById("runeLabel").innerHTML = `Enchanting to .1 will cost <span class="spec">${total.toLocaleString('en-US')}</span> silver`
-	  }
-	  if(index+1 == 2) {
-	  document.getElementById("soulLabel").innerHTML = `Enchanting to .2 will cost <span class="spec">${total.toLocaleString('en-US')}</span> silver`
-	  }
-	  if(index+1 == 3) {
-	  document.getElementById("relicLabel").innerHTML = `Enchanting to .3 will cost <span class="spec">${total.toLocaleString('en-US')}</span> silver`
-	  }
-    })
-  }
-  const base = getValue('base')
-  const materials = [getValue('rune'), getValue('soul'), getValue('relic')]
-  const type = getValue('type')
-  calculateValue(base, materials, type)
-}
-</script>
-</head>
-<body>
-<form style="display:block" onsubmit="validateFormOnSubmit(this); console.log(`End of item`); return false">
-  <label style="text-decoration: underline;">Type</label>
-  <select name="type" id="">
-    <option value="192">2H weapon (192)</option>
-    <option value="144">1H weapon (144)</option>
-    <option value="96">Armor/Bag (96)</option>
-    <option value="48">Helm/Boot/Cape (48)</option>
-  </select>
-  <label style="text-decoration: underline;">Base Item Price</label>
-  <input name="base" type="number">
-  <label style="text-decoration: underline;">Rune Price</label>
-  <input id="rune" name="rune" type="number">
-  <label style="text-decoration: underline;">Soul Price</label>
-  <input id="soul" name="soul" type="number" />
-  <label style="text-decoration: underline;">Relic Price</label>
-  <input id="relic" name="relic" type="number" />
-  <button type="submit" id="btn">
-	Calculate
-  </button>
-</form>
-</body>
-	<label id="runeLabel"></label>
-	<label id="soulLabel"></label>
-	<label id="relicLabel"></label>
+  <style>
+    html {
+      margin: auto;
+    }
+    input, select, button[type="submit"] {
+      width: 100%;
+      margin: 8px 0;
+    }
+    button[type="submit"] {
+      background-color: #753786;
+      color: #fff;
+    }
+    .spec {
+      color: #753786;
+    }
+    #runeLabel, #soulLabel, #relicLabel, .notice {
+      text-align:center;
+    }
+  </style>
+  <head>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <script src="script.js"></script>
+    <script>
+      // TODO: 
+      // add city and tier selection, 
+      // add fetch prices button, 
+      // use albion data api call, 
+      // save previously selected city/tier selection
+    </script>
+  </head>
+  <body>
+    <p class="notice">It is not possible to enchant to .4</p>
+    <form onsubmit="calculate(this); return false">
+      <label><u>Type</u></label>
+      <select name="type" id="">
+        <option value="192">2H weapon (192)</option>
+        <option value="144">1H weapon (144)</option>
+        <option value="96">Armor/Bag (96)</option>
+        <option value="48">Helm/Boot/Cape (48)</option>
+      </select>
+      <label><u>Base Item Price</u></label>
+      <input name="base" type="number" />
+      <label><u>Rune Price</u></label>
+      <input id="rune" name="rune" type="number" />
+      <label><u>Soul Price</u></label>
+      <input id="soul" name="soul" type="number" />
+      <label><u>Relic Price</u></label>
+      <input id="relic" name="relic" type="number" />
+      <button type="submit" id="btn">Calculate</button>
+    </form>
+  </body>
+  <label id="runeLabel"><u>Enchant costs will go here</u></label>
+  <label id="soulLabel"></label>
+  <label id="relicLabel"></label>
 </html>
