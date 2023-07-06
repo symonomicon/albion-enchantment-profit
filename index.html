@@ -4,13 +4,13 @@
     html {
       margin: auto;
     }
-    input, select, button[type="submit"] {
+    .wide {
       width: 100%;
       margin: 8px 0;
     }
-    button[type="submit"] {
-      background-color: #753786;
-      color: #fff;
+    button {
+      background-color: #753786 !important;
+      color: #fff !important;
     }
     .spec {
       color: #753786;
@@ -18,37 +18,61 @@
     #runeLabel, #soulLabel, #relicLabel, .notice {
       text-align:center;
     }
+    a {
+      cursor:pointer;
+    }
+    .center {
+      display: inline;
+      place-self:center;
+    }
   </style>
   <head>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
     <script src="script.js"></script>
     <script>
       // TODO: 
-      // add city and tier selection, 
-      // add fetch prices button, 
-      // use albion data api call, 
       // save previously selected city/tier selection
     </script>
   </head>
   <body>
-    <p class="notice">It is not possible to enchant to .4</p>
-    <form onsubmit="calculate(this); return false">
+    <p class="notice">Prices may be outdated.</p>
+
+    <div class="center">
+      <select id="tier">
+        <option>T4</option>
+        <option>T5</option>
+        <option>T6</option>
+        <option>T7</option>
+        <option>T8</option>
+      </select>
+      <select id="city">
+        <option>Bridgewatch</option>
+        <option>Caerleon</option>
+        <option>Fort Sterling</option>
+        <option>Lymhurst</option>
+        <option>Martlock</option>
+        <option>Thetford</option>
+      </select> 
+      <button onclick="fetchPrice();">Fetch Prices</a>
+    </div>
+    
+    <form onsubmit="calculate(this); return false;">
       <label><u>Type</u></label>
-      <select name="type" id="">
+      <select name="type" class="wide">
         <option value="192">2H weapon (192)</option>
         <option value="144">1H weapon (144)</option>
         <option value="96">Armor/Bag (96)</option>
         <option value="48">Helm/Boot/Cape (48)</option>
       </select>
       <label><u>Base Item Price</u></label>
-      <input name="base" type="number" />
+      <input name="base" class="wide" type="number" />
       <label><u>Rune Price</u></label>
-      <input id="rune" name="rune" type="number" />
+      <input id="rune" name="rune" class="wide" type="number" />
       <label><u>Soul Price</u></label>
-      <input id="soul" name="soul" type="number" />
+      <input id="soul" name="soul" class="wide" type="number" />
       <label><u>Relic Price</u></label>
-      <input id="relic" name="relic" type="number" />
-      <button type="submit" id="btn">Calculate</button>
+      <input id="relic" name="relic" class="wide" type="number" />
+      <button type="submit" class="wide" id="btn">Calculate</button>
     </form>
   </body>
   <label id="runeLabel"><u>Enchant costs will go here</u></label>
