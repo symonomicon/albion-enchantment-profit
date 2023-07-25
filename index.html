@@ -3,27 +3,55 @@
   <style>
     html {
       margin: auto;
-    }
+    } 
     .wide {
       width: 100%;
       margin: 8px 0;
-    }
+    } 
     button {
       background-color: #753786 !important;
       color: #fff !important;
-    }
+    } 
     .spec {
       color: #753786;
-    }
+    } 
     #runeLabel, #soulLabel, #relicLabel, .notice {
       text-align:center;
-    }
+    } 
     a {
       cursor:pointer;
-    }
+    } 
     .center {
       display: inline;
       place-self:center;
+    }
+    .rad {
+      cursor: pointer;
+      user-select: none;
+    }
+    .rad > input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .rad > i { 
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+      transition: 0.2s;
+      box-shadow: inset 0 0 0 8px #fff;
+      border: 1px solid gray;
+      margin-bottom:3px;
+    }
+    .rad:hover > i{ /* HOVER <i> STYLE */
+      box-shadow: inset 0 0 0 3px #fff;
+      background: #753786;
+    }
+    .rad > input:checked + i{ /* (RADIO CHECKED) <i> STYLE */
+      box-shadow: inset 0 0 0 3px #fff;
+      background: #c831ff;
     }
   </style>
   <head>
@@ -58,12 +86,35 @@
     
     <form onsubmit="calculate(this); return false;">
       <label><u>Type</u></label>
+      
+      <div style="display:flex;">
+        <label class="rad">
+          <input name="type" type="radio" value="192">
+          <i></i> 2H Weapon
+        </label>
+        <label class="rad">
+          <input name="type" type="radio" value="144">
+          <i></i> 1H Weapon
+        </label>
+        <label class="rad">
+          <input name="type" type="radio" value="96">
+          <i></i> Armor/Bag
+        </label>
+        <label class="rad">
+          <input name="type" type="radio" value="48">
+          <i></i> Helm/Boot/Cape
+        </label>
+      </div>
+      
+
+      <!--
       <select name="type" class="wide">
-        <option value="192">2H weapon (192)</option>
+        <option value="192">2H weapon (192)<option>
         <option value="144">1H weapon (144)</option>
         <option value="96">Armor/Bag (96)</option>
         <option value="48">Helm/Boot/Cape (48)</option>
       </select>
+      -->
       <label><u>Base Item Price</u></label>
       <input name="base" class="wide" type="number" />
       <label><u>Rune Price</u></label>
