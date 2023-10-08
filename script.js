@@ -23,3 +23,33 @@ while (i < 3) {
     i++;
 }
 }
+
+async function fetchPrice() {
+const tier = document.getElementById("tier").value;
+const city = document.getElementById("city").value;
+const inputRune = document.getElementById("rune");
+const inputSoul = document.getElementById("soul");
+const inputRelic = document.getElementById("relic");
+
+let rune = 0, soul = 0, relic = 0, prices = [];
+
+const [response] = await Promise.allSettled([
+    fetch(`https://west.albion-online-data.com/api/v2/stats/prices/${tier}_RUNE,${tier}_SOUL,${tier}_RELIC?locations=${city}`),
+    new Promise((resolve) => setTimeout(resolve, 100)),
+]);
+
+if (response.status === "fulfilled") {
+    prices = await response.value.json();
+} else {
+    throw new Error(response.reason);
+}
+
+console.log(prices);
+rune = prices[1] ? prices[1].sell_price_min : 0;
+soul = prices[2] ? prices[2].sell_price_min : 0;
+relic = prices[0] ? prices[0].sell_price_min : 0;
+
+inputRune.value = rune;
+inputSoul.value = soul;
+inputRelic.value = relic;
+}
